@@ -1,0 +1,135 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-container, .control-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.grid-container {
+    background-image: url('background.jpg');
+    background-size: cover;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(11, 3rem);
+    grid-template-rows: repeat(11, 3rem);
+    width: 100%;
+}
+
+.cell {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 0.8rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.red-dot {
+    width: 2rem;
+    height: 2rem;
+    background-image: url('asset.jpg');
+    background-size: cover;
+}
+
+.joypad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.joypad-row {
+    display: flex;
+}
+
+.joypad-button {
+    width: 3rem;
+    height: 3rem;
+    margin: 5px;
+    background-color: #c7c7c7;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.joypad-button:active {
+    background-color: #999;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.current-position {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.matrix-solution {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.gameboy-theme {
+    background-color: #b7cdff;
+}
+
+@media (min-width: 769px) {
+    .container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .grid-container, .control-container {
+        flex: 1;
+        margin-bottom: 0;
+    }
+}

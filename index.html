@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATRIX - 2D Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="gameboy-theme">
+    <h1>MATRIX - 2D Demo</h1><hr/>
+    <div class="container">
+        <div class="grid-container" id="grid-container">
+            <div class="grid" id="grid"></div>
+        </div>
+        <div class="control-container" id="control-container">
+            <div id="current-position" class="current-position"></div>
+            <div class="joypad" id="joypad">
+                <button class="joypad-button" onclick="move('up')">↑</button>
+                <div class="joypad-row">
+                    <button class="joypad-button" onclick="move('left')">←</button>
+                    <button class="joypad-button" onclick="move('right')">→</button>
+                </div>
+                <button class="joypad-button" onclick="move('down')">↓</button>
+            </div>
+            <div class="settings" id="settings">
+                <input type="number" id="addX" placeholder="Add X">
+                <input type="number" id="addY" placeholder="Add Y"><br>
+                <input type="number" id="mulX" placeholder="Multiply X">
+                <input type="number" id="mulY" placeholder="Multiply Y"><br>
+                <button onclick="applyMatrix()">Apply Matrix</button>
+                <div id="matrix-result"></div>
+            </div>
+            <div id="matrix-solution" class="matrix-solution"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
