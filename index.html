@@ -7,17 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="gameboy-theme">
-    <h1>MATRIX - 2D Demo</h1><hr/>
+    <h1 id="title">MATRIX - 2D Demo</h1><hr/>
     <div class="container">
         <div class="grid-container" id="grid-container">
             <div class="grid" id="grid"></div>
         </div>
         <div class="control-container" id="control-container">
-            <div id="current-position" class="current-position"></div>
             <div class="joypad" id="joypad">
                 <button class="joypad-button" onclick="move('up')">↑</button>
                 <div class="joypad-row">
-                    <button class="joypad-button" onclick="move('left')">←</button>
+                    <button id="leftbutton" class="joypad-button" onclick="move('left')">←</button>
                     <button class="joypad-button" onclick="move('right')">→</button>
                 </div>
                 <button class="joypad-button" onclick="move('down')">↓</button>
@@ -27,10 +26,16 @@
                 <input type="number" id="addY" placeholder="Add Y"><br>
                 <input type="number" id="mulX" placeholder="Multiply X">
                 <input type="number" id="mulY" placeholder="Multiply Y"><br>
-                <button onclick="applyMatrix()">Apply Matrix</button>
-                <div id="matrix-result"></div>
+                <div class="buttonDiv">
+                    <button onclick="applyMatrix()">Apply Matrix</button>
+                    <button id="show-coordinates">Show Coordinates</button>
+                </div>
             </div>
-            <div id="matrix-solution" class="matrix-solution"></div>
+            <div id="output">
+                <div id="current-position" class="current-position"></div>
+                <div id="matrix-result"></div>
+                <div id="matrix-solution" class="matrix-solution"></div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>

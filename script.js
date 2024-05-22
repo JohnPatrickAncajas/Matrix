@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentPositionDiv = document.getElementById("current-position");
     const matrixResultDiv = document.getElementById("matrix-result");
     const matrixSolutionDiv = document.getElementById("matrix-solution");
+    const showCoordinates = document.getElementById("show-coordinates");
+
+    let transparent = false;
 
     const size = 11;
     for (let y = size - 1; y >= 0; y--) {
@@ -11,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
             cell.className = "cell";
             cell.dataset.x = x;
             cell.dataset.y = y;
-            cell.innerText = `(${x}, ${y})`;
             cell.addEventListener("click", () => teleportRedDot(x, y));
             grid.appendChild(cell);
         }
@@ -23,57 +25,144 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCurrentPosition();
 
     function updateRedDot() {
-        document.querySelectorAll(".cell").forEach(cell => cell.innerHTML = `(${cell.dataset.x}, ${cell.dataset.y})`);
+        document.querySelectorAll(".cell").forEach(cell => cell.innerHTML = ``);
         const cellIndex = (size - 1 - posY) * size + posX;
         const cell = document.querySelector(`.cell:nth-child(${cellIndex + 1})`);
         const dot = document.createElement("div");
         dot.className = "red-dot";
         cell.appendChild(dot);
+        transparent = false;
     }
 
     function updateCurrentPosition() {
-        currentPositionDiv.innerHTML = `Current Position: [${posX}, ${posY}] (x=${posX}, y=${posY})`;
+        currentPositionDiv.innerHTML = `Current Position: [${posX}, ${posY}] (x = ${posX}, y = ${posY})`;
+        matrixResultDiv.innerText = '';  // Clear the "Out of bounds" message
     }
 
+    showCoordinates.addEventListener("click", () => {
+        const cells = document.querySelectorAll(".cell");
+        if (!transparent) {
+            cells.forEach(cell => cell.innerHTML = `(${cell.dataset.x}, ${cell.dataset.y})`);
+            transparent = true;
+        } else {
+            updateRedDot();
+            transparent = false;
+        }
+    });
+
     window.move = function(direction) {
+        const oldX = posX;
+        const oldY = posY;
+        
         if (direction === "up" && posY < size - 1) posY++;
         if (direction === "down" && posY > 0) posY--;
         if (direction === "left" && posX > 0) posX--;
         if (direction === "right" && posX < size - 1) posX++;
+        
         updateRedDot();
         updateCurrentPosition();
+        calculateDifference(oldX, oldY, posX, posY);
     };
 
     window.teleportRedDot = function(x, y) {
+        const oldX = posX;
+        const oldY = posY;
         posX = x;
         posY = y;
         updateRedDot();
         updateCurrentPosition();
+        calculateDifference(oldX, oldY, posX, posY);
     };
 
+    function calculateDifference(oldX, oldY, newX, newY) {
+        matrixSolutionDiv.innerHTML = '';
+        const diffX = newX - oldX;
+        const diffY = newY - oldY;
+        matrixSolutionDiv.innerHTML = `
+            Difference Calculation:<br>
+            Old Position: [${oldX}, ${oldY}]<br>
+            New Position: [${newX}, ${newY}]<br>
+            Difference: [${diffX}, ${diffY}]
+        `;
+    }
+
     window.applyMatrix = function() {
+        matrixSolutionDiv.innerHTML = '';
+        matrixResultDiv.innerText = '';
+
         const addX = parseInt(document.getElementById("addX").value) || 0;
         const addY = parseInt(document.getElementById("addY").value) || 0;
-        const mulX = parseInt(document.getElementById("mulX").value) || 1;
-        const mulY = parseInt(document.getElementById("mulY").value) || 1;
+        const mulX = document.getElementById("mulX").value ? parseInt(document.getElementById("mulX").value) : null;
+        const mulY = document.getElementById("mulY").value ? parseInt(document.getElementById("mulY").value) : null;
 
-        const newX = posX * mulX + addX;
-        const newY = posY * mulY + addY;
+        let newX = posX;
+        let newY = posY;
+        let operationDesc = '';
+
+        if (mulX !== null || mulY !== null) {
+            if (mulX !== null) {
+                newX *= mulX;
+                operationDesc += `[${posX} x ${mulX}] `;
+            }
+            if (mulY !== null) {
+                newY *= mulY;
+                operationDesc += `[${posY} x ${mulY}] `;
+            }
+        }
+
+        if (addX !== 0 || addY !== 0) {
+            newX += addX;
+            newY += addY;
+            if (operationDesc) {
+                operationDesc += `+ [${addX}, ${addY}]`;
+            } else {
+                operationDesc = `[${posX} + ${addX}, ${posY} + ${addY}]`;
+            }
+        }
+
+        if (!operationDesc) {
+            operationDesc = `[${posX}, ${posY}]`;
+        }
 
         matrixSolutionDiv.innerHTML = `
             Matrix Operation:<br>
-            [${posX} * ${mulX} + ${addX}, ${posY} * ${mulY} + ${addY}]<br>
-            New Position: (${newX}, ${newY})
+            ${operationDesc}<br>
+            New Position: [${newX}, ${newY}]
         `;
 
         if (newX >= 0 && newX < size && newY >= 0 && newY < size) {
             posX = newX;
             posY = newY;
-            matrixResultDiv.innerText = `New Position: [${posX}, ${posY}] (x=${posX}, y=${posY})`;
+            matrixResultDiv.innerText = `New Position: [${posX}, ${posY}] (x = ${posX}, y = ${posY})`;
             updateRedDot();
             updateCurrentPosition();
         } else {
             matrixResultDiv.innerText = `Out of bounds: [${newX}, ${newY}]`;
         }
     };
+
+    document.addEventListener("keydown", (event) => {
+        switch (event.key) {
+            case "ArrowUp":
+            case "w":
+            case "W":
+                move("up");
+                break;
+            case "ArrowDown":
+            case "s":
+            case "S":
+                move("down");
+                break;
+            case "ArrowLeft":
+            case "a":
+            case "A":
+                move("left");
+                break;
+            case "ArrowRight":
+            case "d":
+            case "D":
+                move("right");
+                break;
+        }
+    });
 });
