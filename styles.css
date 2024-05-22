@@ -44,7 +44,7 @@ body, html {
     display: grid;
     grid-template-columns: repeat(11, 2rem);
     grid-template-rows: repeat(11, 2rem);
-    background-image: url('./assets/background.jpg');
+    background-image: url('background.jpg');
     background-size: cover;
 }
 
@@ -68,7 +68,7 @@ body, html {
 .red-dot {
     width: 1.5rem;
     height: 1.5rem;
-    background-image: url('./assets/asset.jpg');
+    background-image: url('asset.jpg');
     background-size: cover;
 }
 

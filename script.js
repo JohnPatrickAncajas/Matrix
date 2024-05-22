@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateCurrentPosition() {
         currentPositionDiv.innerHTML = `Current Position: [${posX}, ${posY}] (x = ${posX}, y = ${posY})`;
-        matrixResultDiv.innerText = '';  // Clear the "Out of bounds" message
+        matrixResultDiv.innerText = '';
     }
 
     showCoordinates.addEventListener("click", () => {
