@@ -7,9 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let transparent = false;
 
-    const size = 11;
-    for (let y = size - 1; y >= 0; y--) {
-        for (let x = 0; x < size; x++) {
+    const size = 21;
+    const offset = 10;
+
+    for (let y = 10; y >= -10; y--) {
+        for (let x = -10; x <= 10; x++) {
             const cell = document.createElement("div");
             cell.className = "cell";
             cell.dataset.x = x;
@@ -26,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateRedDot() {
         document.querySelectorAll(".cell").forEach(cell => cell.innerHTML = ``);
-        const cellIndex = (size - 1 - posY) * size + posX;
+        const cellIndex = (offset - posY) * size + (posX + offset);
         const cell = document.querySelector(`.cell:nth-child(${cellIndex + 1})`);
         const dot = document.createElement("div");
         dot.className = "red-dot";
@@ -35,14 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateCurrentPosition() {
-        currentPositionDiv.innerHTML = `Current Position: [${posX}, ${posY}] (x = ${posX}, y = ${posY})`;
+        currentPositionDiv.innerHTML = `Current Position: [${posX} ${posY}] (x = ${posX}, y = ${posY})`;
         matrixResultDiv.innerText = '';
     }
 
     showCoordinates.addEventListener("click", () => {
         const cells = document.querySelectorAll(".cell");
         if (!transparent) {
-            cells.forEach(cell => cell.innerHTML = `(${cell.dataset.x}, ${cell.dataset.y})`);
+            cells.forEach(cell => cell.innerHTML = `[${cell.dataset.x} ${cell.dataset.y}]`);
             transparent = true;
         } else {
             updateRedDot();
@@ -54,10 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const oldX = posX;
         const oldY = posY;
         
-        if (direction === "up" && posY < size - 1) posY++;
-        if (direction === "down" && posY > 0) posY--;
-        if (direction === "left" && posX > 0) posX--;
-        if (direction === "right" && posX < size - 1) posX++;
+        if (direction === "up" && posY < offset) posY++;
+        if (direction === "down" && posY > -offset) posY--;
+        if (direction === "left" && posX > -offset) posX--;
+        if (direction === "right" && posX < offset) posX++;
         
         updateRedDot();
         updateCurrentPosition();
@@ -80,9 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const diffY = newY - oldY;
         matrixSolutionDiv.innerHTML = `
             Difference Calculation:<br>
-            Old Position: [${oldX}, ${oldY}]<br>
-            New Position: [${newX}, ${newY}]<br>
-            Difference: [${diffX}, ${diffY}]
+            Old Position: [${oldX} ${oldY}]<br>
+            New Position: [${newX} ${newY}]<br>
+            Difference: [${diffX} ${diffY}]
         `;
     }
 
@@ -114,30 +116,30 @@ document.addEventListener("DOMContentLoaded", () => {
             newX += addX;
             newY += addY;
             if (operationDesc) {
-                operationDesc += `+ [${addX}, ${addY}]`;
+                operationDesc += `+ [${addX} ${addY}]`;
             } else {
-                operationDesc = `[${posX} + ${addX}, ${posY} + ${addY}]`;
+                operationDesc = `[(${posX} + ${addX}) (${posY} + ${addY})]`;
             }
         }
 
         if (!operationDesc) {
-            operationDesc = `[${posX}, ${posY}]`;
+            operationDesc = `[${posX} ${posY}]`;
         }
 
         matrixSolutionDiv.innerHTML = `
             Matrix Operation:<br>
             ${operationDesc}<br>
-            New Position: [${newX}, ${newY}]
+            New Position: [${newX} ${newY}]
         `;
 
-        if (newX >= 0 && newX < size && newY >= 0 && newY < size) {
+        if (newX >= -offset && newX <= offset && newY >= -offset && newY <= offset) {
             posX = newX;
             posY = newY;
-            matrixResultDiv.innerText = `New Position: [${posX}, ${posY}] (x = ${posX}, y = ${posY})`;
+            matrixResultDiv.innerText = `New Position: [${posX} ${posY}] (x = ${posX}, y = ${posY})`;
             updateRedDot();
             updateCurrentPosition();
         } else {
-            matrixResultDiv.innerText = `Out of bounds: [${newX}, ${newY}]`;
+            matrixResultDiv.innerText = `Out of bounds: [${newX} ${newY}]`;
         }
     };
 
