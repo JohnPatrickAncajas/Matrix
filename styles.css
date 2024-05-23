@@ -55,7 +55,7 @@ body, html {
     align-items: center;
     justify-content: center;
     position: relative;
-    font-size: 0.35rem;
+    font-size: 0.2rem;
     color: #ffffff;
     font-weight: 400;
     cursor: pointer;
@@ -161,6 +161,7 @@ button {
     .cell {
         width: 1.5rem;
         height: 1.5rem;
+        font-size: 0.35rem;
     }
 
     .red-dot {
