@@ -1,2 +1,2 @@
 # Matrix
- A simple 2D demonstration on how matrix are used in games.
+ A basic demonstration on how matrix are used for movement in 2D games.
