@@ -7,11 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let transparent = false;
 
-    const size = 21;
-    const offset = 10;
+    const size = 16;
+    const negativeOffset = 7;
+    const positiveOffset = 8;
 
-    for (let y = 10; y >= -10; y--) {
-        for (let x = -10; x <= 10; x++) {
+    for (let y = positiveOffset; y >= -negativeOffset; y--) {
+        for (let x = -negativeOffset; x <= positiveOffset; x++) {
             const cell = document.createElement("div");
             cell.className = "cell";
             cell.dataset.x = x;
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateRedDot() {
         document.querySelectorAll(".cell").forEach(cell => cell.innerHTML = ``);
-        const cellIndex = (offset - posY) * size + (posX + offset);
+        const cellIndex = (positiveOffset - posY) * size + (posX + negativeOffset);
         const cell = document.querySelector(`.cell:nth-child(${cellIndex + 1})`);
         const dot = document.createElement("div");
         dot.className = "red-dot";
@@ -56,10 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const oldX = posX;
         const oldY = posY;
         
-        if (direction === "up" && posY < offset) posY++;
-        if (direction === "down" && posY > -offset) posY--;
-        if (direction === "left" && posX > -offset) posX--;
-        if (direction === "right" && posX < offset) posX++;
+        if (direction === "up" && posY < positiveOffset) posY++;
+        if (direction === "down" && posY > -negativeOffset) posY--;
+        if (direction === "left" && posX > -negativeOffset) posX--;
+        if (direction === "right" && posX < positiveOffset) posX++;
         
         updateRedDot();
         updateCurrentPosition();
@@ -132,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
             New Position: [${newX} ${newY}]
         `;
 
-        if (newX >= -offset && newX <= offset && newY >= -offset && newY <= offset) {
+        if (newX >= -negativeOffset && newX <= positiveOffset && newY >= -negativeOffset && newY <= positiveOffset) {
             posX = newX;
             posY = newY;
             matrixResultDiv.innerText = `New Position: [${posX} ${posY}] (x = ${posX}, y = ${posY})`;

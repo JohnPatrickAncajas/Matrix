@@ -42,9 +42,9 @@ body, html {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(21, 1rem);
-    grid-template-rows: repeat(21, 1rem);
-    background-image: url('background.jpg');
+    grid-template-columns: repeat(16, 1rem);
+    grid-template-rows: repeat(16, 1rem);
+    background-image: url('background.png');
     background-size: cover;
 }
 
@@ -68,7 +68,7 @@ body, html {
 .red-dot {
     width: .5rem;
     height: .5rem;
-    background-image: url('asset.jpg');
+    background-image: url('asset.png');
     background-size: cover;
 }
 
@@ -154,8 +154,8 @@ button {
     }
 
     .grid {
-        grid-template-columns: repeat(21, 1.5rem);
-        grid-template-rows: repeat(21, 1.5rem);
+        grid-template-columns: repeat(16, 1.5rem);
+        grid-template-rows: repeat(16, 1.5rem);
     }
     
     .cell {
@@ -165,8 +165,8 @@ button {
     }
 
     .red-dot {
-        width: 1rem;
-        height: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
 
     }
 }
