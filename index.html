@@ -22,15 +22,15 @@
                 <button class="joypad-button" onclick="move('down')">↓</button>
             </div>
             <div class="settings" id="settings">
-                <input type="number" id="addX" placeholder="Add X">
-                <input type="number" id="addY" placeholder="Add Y"><br>
-                <input type="number" id="mulX" placeholder="Multiply X">
-                <input type="number" id="mulY" placeholder="Multiply Y"><br>
+                <div class="coordinates-input">[
+                    <input type="number" id="addX" placeholder="x">
+                    <input type="number" id="addY" placeholder="y">]
+                </div>
                 <div class="buttonDiv">
                     <button onclick="applyMatrix()">Apply Matrix</button>
                     <button id="show-coordinates">Show Coordinates</button>
                 </div>
-            </div>
+            </div>            
             <div id="output">
                 <div id="current-position" class="current-position"></div>
                 <div id="matrix-result"></div>

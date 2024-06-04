@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateCurrentPosition() {
-        currentPositionDiv.innerHTML = `Current Position: [${posX} ${posY}] (x = ${posX}, y = ${posY})`;
+        currentPositionDiv.innerHTML = `Current Position: [${posX} ${posY}]`;
         matrixResultDiv.innerText = '';
     }
 
@@ -95,37 +95,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const addX = parseInt(document.getElementById("addX").value) || 0;
         const addY = parseInt(document.getElementById("addY").value) || 0;
-        const mulX = document.getElementById("mulX").value ? parseInt(document.getElementById("mulX").value) : null;
-        const mulY = document.getElementById("mulY").value ? parseInt(document.getElementById("mulY").value) : null;
 
-        let newX = posX;
-        let newY = posY;
-        let operationDesc = '';
-
-        if (mulX !== null || mulY !== null) {
-            if (mulX !== null) {
-                newX *= mulX;
-                operationDesc += `[${posX} x ${mulX}] `;
-            }
-            if (mulY !== null) {
-                newY *= mulY;
-                operationDesc += `[${posY} x ${mulY}] `;
-            }
-        }
-
-        if (addX !== 0 || addY !== 0) {
-            newX += addX;
-            newY += addY;
-            if (operationDesc) {
-                operationDesc += `+ [${addX} ${addY}]`;
-            } else {
-                operationDesc = `[(${posX} + ${addX}) (${posY} + ${addY})]`;
-            }
-        }
-
-        if (!operationDesc) {
-            operationDesc = `[${posX} ${posY}]`;
-        }
+        let newX = posX + addX;
+        let newY = posY + addY;
+        let operationDesc = `[${posX} ${posY}] + [${addX} ${addY}]`;
 
         matrixSolutionDiv.innerHTML = `
             Matrix Operation:<br>
@@ -136,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (newX >= -negativeOffset && newX <= positiveOffset && newY >= -negativeOffset && newY <= positiveOffset) {
             posX = newX;
             posY = newY;
-            matrixResultDiv.innerText = `New Position: [${posX} ${posY}] (x = ${posX}, y = ${posY})`;
+            matrixResultDiv.innerText = `New Position: [${posX} ${posY}]`;
             updateRedDot();
             updateCurrentPosition();
         } else {

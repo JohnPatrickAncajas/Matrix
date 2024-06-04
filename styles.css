@@ -141,6 +141,25 @@ button {
     background-color: #e8e8e8;
 }
 
+.coordinates-input {
+    display: inline-flex;
+    align-items: center;
+}
+
+.coordinates-input input {
+    width: 50px;
+    margin: 0 0.3rem;
+    text-align: center;
+}
+
+.coordinates-input input::placeholder {
+    text-align: center;
+}
+
+.buttonDiv {
+    margin-top: 10px;
+}
+
 @media (min-width: 769px) {
     .container {
         flex-direction: row;
@@ -168,6 +187,5 @@ button {
     .red-dot {
         width: 1.5rem;
         height: 1.5rem;
-
     }
 }
